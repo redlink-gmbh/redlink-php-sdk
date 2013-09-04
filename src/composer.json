@@ -1,0 +1,28 @@
+{
+    "name": "redlink/redlink",
+    "type": "library",
+    "description": "RedLink SDK PHP is a client library and framework to request and deal with RedLink API",
+    "keywords": ["RedLink", "SDK", "framework", "http", "rest", "web service", "curl", "client"],
+    "homepage": "http://guzzlephp.org/",
+    "license": "MIT",
+
+    "authors": [
+        {
+            "name": "Antonio David Pérez Morales",
+            "email": "adperezmorales@gmail.com",
+            "homepage": "https://github.com/adperezmorales"
+        }
+    ],
+    
+    "require": {
+        "guzzle/guzzle" : "dev-master",
+        "easyrdf/easyrdf": "*"
+    },
+    
+    "autoload": {
+        "psr-0": {
+            "RedLink\\Tests": "tests/",
+            "RedLink": "src/"
+        }
+    },
+}
