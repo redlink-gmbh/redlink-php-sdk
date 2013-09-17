@@ -1,22 +1,25 @@
 <?php
 
-namespace RedLink\Tests\Enhancer\Model;
+namespace RedLink\Tests\Enhancer\Model\Parser;
 
 /**
  * <p>EnhancementsParser Tests</p>
  *
  * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
- * @covers RedLink\Enhancer\Model\EnhancementsParser
- * @covers RedLink\Enhancer\Model\Enhancements
+ * @covers RedLink\Enhancer\Model\Parser\EasyRdfEnhancementsParser
+ * @covers RedLink\Enhancer\Model\Parser\EnhancementsParserFactory
  */
-class EnhancementsParserTest extends \PHPUnit_Framework_TestCase
+class EasyRdfEnhancementsParserTest extends \PHPUnit_Framework_TestCase
 {
     private static $model;
+    private static $enhancementsParser;
+    
+    
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
-        self::$model = new \EasyRdf_Graph();
-        self::$model->parseFile(__DIR__.DIRECTORY_SEPARATOR.'rdf.txt');
+        self::$enhancementsParser = \RedLink\Enhancer\Model\Parser\EnhancementsParserFactory::createDefaultParser(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'rdf.txt'));
+        //self::$model->parseFile(__DIR__.DIRECTORY_SEPARATOR.'rdf.txt');
     }
     
     public static function tearDownAfterClass()
@@ -25,10 +28,12 @@ class EnhancementsParserTest extends \PHPUnit_Framework_TestCase
         self::$model = null;
     }
     /**
+     * @covers RedLink\Enhancer\Model\Parser\EnhancementsParserFactory::createDefaultParser
      * @covers RedLink\Enhancer\Model\EnhancementsParser::parseEnhancements
      */
     public function testParseEnhancements() {
-        $enhancementsArray = \RedLink\Enhancer\Model\EnhancementsParser::parseEnhancements(self::$model);
+        $this->assertInstanceOf('\RedLink\Enhancer\Model\Parser\EasyRdfEnhancementsParser', self::$enhancementsParser);
+        $enhancementsArray = self::$enhancementsParser->parseEnhancements();
         $this->assertNotNull($enhancementsArray);
         $this->assertCount(63, $enhancementsArray);
     }
@@ -41,7 +46,7 @@ class EnhancementsParserTest extends \PHPUnit_Framework_TestCase
         /*
          * Test enhancements, text annotations, entity annotations and entities
          */
-        $enhancements = \RedLink\Enhancer\Model\EnhancementsParser::createEnhancements(self::$model);
+        $enhancements = self::$enhancementsParser->createEnhancements();
         
         /*
          * Test Enhancements

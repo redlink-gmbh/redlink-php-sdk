@@ -25,6 +25,11 @@ class DCTerms
      * <p>Language</p>
      */
     const LANGUAGE = "http://purl.org/dc/terms/language";
+    
+    /**
+     * <p>Linguistic system</p>
+     */
+    const LINGUISTIC_SYSTEM = "http://purl.org/dc/terms/LinguisticSystem";
     /**
      * <p>Relation</p>
      */
@@ -33,6 +38,7 @@ class DCTerms
      * <p>Type</p>
      */
     const TYPE = "http://purl.org/dc/terms/type";
+    
 }
 
 ?>

@@ -215,7 +215,7 @@ class EasyRdf_Namespace
                 return array($prefix, $matches[2]);
             }*/
             
-            //TODO: aperez added uri validation for registering namespace
+            //TODO: adperezmorales added uri validation for registering namespace
             if(filter_var($uri, FILTER_VALIDATE_URL) == false) {
                 throw new InvalidArgumentException("\$uri is not a valid uri");
             }

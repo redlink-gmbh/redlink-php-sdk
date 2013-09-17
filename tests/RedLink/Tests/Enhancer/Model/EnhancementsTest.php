@@ -17,14 +17,11 @@ class EnhancementsTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
-        self::$model = new \EasyRdf_Graph();
-        self::$model->parseFile(__DIR__.DIRECTORY_SEPARATOR.'rdf.txt');
     }
     
     public static function tearDownAfterClass()
     {
         parent::tearDownAfterClass();
-        self::$model = null;
     }
     
     protected function tearDown()
@@ -35,7 +32,7 @@ class EnhancementsTest extends \PHPUnit_Framework_TestCase
     
     public function setUp() {
         parent::setUp();
-        $this->enhancements = \RedLink\Enhancer\Model\EnhancementsParser::createEnhancements(self::$model);
+        $this->enhancements = \RedLink\Enhancer\Model\Parser\EnhancementsParserFactory::createDefaultParser(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'rdf.txt'))->createEnhancements();
     }
     
     /**

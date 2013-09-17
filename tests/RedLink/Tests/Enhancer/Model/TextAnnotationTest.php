@@ -18,12 +18,10 @@ class TextAnnotationTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
-        self::$model = new \EasyRdf_Graph();
-        self::$model->parseFile(__DIR__ . DIRECTORY_SEPARATOR . 'rdf.txt');
-        $enhancements = \RedLink\Enhancer\Model\EnhancementsParser::createEnhancements(self::$model);
+        $enhancements = \RedLink\Enhancer\Model\Parser\EnhancementsParserFactory::createDefaultParser(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'rdf.txt'))->createEnhancements();
         $textAnnotations = $enhancements->getTextAnnotations();
-                self::$textAnnotation = $textAnnotations['urn:enhancement-5ed22ff7-0c2f-4ad5-ee87-b71968f613a8'];
-        
+
+        self::$textAnnotation = $textAnnotations['urn:enhancement-5ed22ff7-0c2f-4ad5-ee87-b71968f613a8'];
     }
 
     public static function tearDownAfterClass()
@@ -45,7 +43,7 @@ class TextAnnotationTest extends \PHPUnit_Framework_TestCase
 
         //Test Language
         $this->assertEquals("en", self::$textAnnotation->getLanguage());
-        
+
         //Test Extracted From
         $this->assertNotEmpty(self::$textAnnotation->getExtractedFrom());
 
@@ -67,10 +65,9 @@ class TextAnnotationTest extends \PHPUnit_Framework_TestCase
 
         //Test Creator
         $this->assertEquals("org.apache.stanbol.enhancer.engines.entitylinking.engine.EntityLinkingEngine", self::$textAnnotation->getCreator());
-        
+
         //Test Relations
         $this->assertNull(self::$textAnnotation->getRelations());
-       
     }
 
 }

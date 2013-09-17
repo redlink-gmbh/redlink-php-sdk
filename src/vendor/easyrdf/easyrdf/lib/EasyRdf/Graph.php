@@ -341,7 +341,7 @@ class EasyRdf_Graph
             $this->resource($subject);
         }
 
-        //TODO: aperez commented the reverse index
+        //TODO: adperezmorales commented the reverse index
         /*foreach ($this->_revIndex as $object => $properties) {
             if (!isset($this->_resources[$object])) {
                 $this->resource($object);

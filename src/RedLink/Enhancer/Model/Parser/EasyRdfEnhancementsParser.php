@@ -1,14 +1,34 @@
 <?php
 
-namespace RedLink\Enhancer\Model;
+namespace RedLink\Enhancer\Model\Parser;
 
 /**
- * <p>Helper class to deal with the Enhancements graph model</p>
+ * <p>Class representing an EnhancementsParser</p>
+ * <p>It uses EasyRdf library in order to parse the Enhancements</p>
  *
  * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * 
  */
-class EnhancementsParser
+class EasyRdfEnhancementsParser implements \RedLink\Enhancer\Model\Parser\EnhancementsParser
 {
+
+    /**
+     * <p>EasyRdf_Graph containing the enhancements model</p>
+     * @var EasyRdf_Graph
+     */
+    private $model;
+
+    /**
+     * <p>Constructor</p>
+     * <p>Constructs an instance using the enhancements passed as string parameter</p>
+     * 
+     * @param string $rawModel the string containing the enhancements model (in RDF)
+     */
+    public function __construct($rawModel)
+    {
+        $this->model = new \EasyRdf_Graph();
+        $this->model->parse($rawModel);
+    }
 
     /**
      * <p>Constant containing the value of the Language Detection Enhancement Engine used by Stanbol</p>
@@ -19,30 +39,29 @@ class EnhancementsParser
     /**
      * <p>Creates the \RedLink\Enhancer\Model\Enhancements object from the given model</p>
      * 
-     * @param \EasyRdf_Graph $model The model containing the resources returned by the Enhancer Service
      * @return object A \RedLink\Enhancer\Model\Enhancements object instance representing the enhancements 
      */
-    public static function createEnhancements(\EasyRdf_Graph $model)
+    public function createEnhancements()
     {
-        $enhancements = new \RedLink\Enhancer\Model\Enhancements($model);
-        $enhancements->setEnhancements(self::parseEnhancements($model));
-        self::updateEnhancementsLanguages($enhancements, $model);
+        $enhancements = new \RedLink\Enhancer\Model\Enhancements($this->model);
+        $enhancements->setEnhancements($this->parseEnhancements($this->model));
+        $enhancements->setLanguages($this->parseLanguages($this->model));
         return $enhancements;
     }
 
     /**
-     * <p>Parses the enhancements contained in the given model</p>
+     * <p>Parses the enhancements contained in the model</p>
      * <p>Returns both TextAnnotation and EntityAnnotation enhancements</p>
-     * @param \EasyRdf_Graph $model The model containing the resources returned by the Enhancer Service
+     * 
      * @return array An array containing the \RedLink\Enhancer\Model\Enhancement objects
      */
-    public static function parseEnhancements(\EasyRdf_Graph $model)
+    public function parseEnhancements()
     {
 
-        $result = self::parseTextAnnotations($model);
-        $result = array_merge($result, self::parseEntityAnnotations($model));
+        $result = $this->parseTextAnnotations($this->model);
+        $result = array_merge($result, $this->parseEntityAnnotations($this->model));
 
-        $modelArray = $model->toArray();
+        $modelArray = $this->model->toArray();
         foreach ($result as $enhancementUri => $enhancementInstance) {
             $enhancementProperties = $modelArray[$enhancementUri];
             if (isset($enhancementProperties[\RedLink\Ontology\DCTerms::RELATION])) {
@@ -62,25 +81,24 @@ class EnhancementsParser
     /**
      * <p>Parse the TextAnnotations contained in the model into <code>\RedLink\Enhancer\Model\TextAnnotation</code> objects</p>
      * 
-     * @param \EasyRdf_Graph $model The model containing the resources returned by the Enhancer Service
      * @return array An array containing the \RedLink\Enhancer\Model\TextAnnotation objects
      */
-    public static function parseTextAnnotations(\EasyRdf_Graph $model)
+    public function parseTextAnnotations()
     {
         $enhancements = array();
 
         /*
          * Gets the text annotations
          */
-        $textAnnotations = $model->resourcesMatching(\RedLink\Ontology\RDF::TYPE, array('type' => 'uri', 'value' => \RedLink\Ontology\FISE::TEXT_ANNOTATION));
-        $modelArray = $model->toArray();
+        $textAnnotations = $this->model->resourcesMatching(\RedLink\Ontology\RDF::TYPE, array('type' => 'uri', 'value' => \RedLink\Ontology\FISE::TEXT_ANNOTATION));
+        $modelArray = $this->model->toArray();
 
         foreach ($textAnnotations as $taResource) {
             if (isset($modelArray[$taResource->getUri()][\RedLink\Ontology\DCTerms::CREATOR]) && $modelArray[$taResource->getUri()][\RedLink\Ontology\DCTerms::CREATOR][0]['value'] == self::$LANGUAGE_DETECTION_ENHANCEMENT_ENGINE)
                 continue;
 
             $textAnnotation = new \RedLink\Enhancer\Model\TextAnnotation($taResource->getUri());
-            self::setTextAnnotationData($textAnnotation, $model);
+            $this->setTextAnnotationData($textAnnotation);
 
             $enhancements[$textAnnotation->getUri()] = $textAnnotation;
         }
@@ -91,21 +109,20 @@ class EnhancementsParser
     /**
      * <p>Parse the EntityAnnotations contained in the model into <code>\RedLink\Enhancer\Model\EntityAnnotation</code> objects
      * 
-     * @param \EasyRdf_Graph $model The model containing the resources returned by the Enhancer Service
      * @return array An array containing the \RedLink\Enhancer\Model\EntityAnnotation objects
      */
-    public static function parseEntityAnnotations(\EasyRdf_Graph $model)
+    public function parseEntityAnnotations()
     {
         $enhancements = array();
 
         /*
          * Gets the entity annotations
          */
-        $entityAnnotations = $model->resourcesMatching(\RedLink\Ontology\RDF::TYPE, array('type' => 'uri', 'value' => \RedLink\Ontology\FISE::ENTITY_ANNOTATION));
+        $entityAnnotations = $this->model->resourcesMatching(\RedLink\Ontology\RDF::TYPE, array('type' => 'uri', 'value' => \RedLink\Ontology\FISE::ENTITY_ANNOTATION));
         foreach ($entityAnnotations as $eaResource) {
 
             $entityAnnotation = new \RedLink\Enhancer\Model\EntityAnnotation($eaResource->getUri());
-            self::setEntityAnnotationData($entityAnnotation, $model);
+            $this->setEntityAnnotationData($entityAnnotation);
 
             $enhancements[$entityAnnotation->getUri()] = $entityAnnotation;
         }
@@ -114,21 +131,42 @@ class EnhancementsParser
     }
 
     /**
-     * <p>Sets the data related to a TextAnnotation</p>
-     * @param \RedLink\Enhancer\Model\TextAnnotation $textAnnotation The <code>\RedLink\Enhancer\Model\TextAnnotation</code> to be populated
-     * @param \EasyRdf_Graph $model The original model containing all the enhancements and other information returned by the Enhancement Service
+     * <p>Parse the languages of the enhancements</p>
+     * 
+     * 
+     * @return array An array containing the languages
      */
-    private static function setTextAnnotationData(\RedLink\Enhancer\Model\TextAnnotation $textAnnotation, \EasyRdf_Graph $model)
+    public function parseLanguages()
+    {
+        $languages = array();
+        $modelArray = $this->model->toArray();
+        $textAnnotationsLanguage = $this->model->resourcesMatching(\RedLink\Ontology\DCTerms::TYPE, array('type' => 'uri', 'value' => \RedLink\Ontology\DCTerms::LINGUISTIC_SYSTEM));
+        foreach ($textAnnotationsLanguage as $taLangResource) {
+            $taProperties = $modelArray[$taLangResource->getUri()];
+            $lang = isset($taProperties[\RedLink\Ontology\DCTerms::LANGUAGE][0]['value']) ? $taProperties[\RedLink\Ontology\DCTerms::LANGUAGE][0]['value'] : '';
+            if (!empty($lang) && !in_array($lang, $languages))
+                array_push($languages, $lang);
+        }
+
+        return $languages;
+    }
+
+    /**
+     * <p>Sets the data related to a TextAnnotation</p>
+     * 
+     * @param \RedLink\Enhancer\Model\TextAnnotation $textAnnotation The <code>\RedLink\Enhancer\Model\TextAnnotation</code> to be populated
+     */
+    private function setTextAnnotationData(\RedLink\Enhancer\Model\TextAnnotation $textAnnotation)
     {
         /*
          * Sets the common data for an enhancement 
          */
-        self::setEnhancementData($textAnnotation, $model);
+        $this->setEnhancementData($textAnnotation);
 
         /*
          * Convert the model to an array for ease of manipulation
          */
-        $modelArray = $model->toArray();
+        $modelArray = $this->model->toArray();
         $taProperties = $modelArray[$textAnnotation->getUri()];
 
         $textAnnotation->setType(isset($taProperties[\RedLink\Ontology\DCTerms::TYPE][0]['value']) ? (string) $taProperties[\RedLink\Ontology\DCTerms::TYPE][0]['value'] : null);
@@ -137,27 +175,27 @@ class EnhancementsParser
         $textAnnotation->setSelectedText(isset($taProperties[\RedLink\Ontology\FISE::SELECTED_TEXT][0]['value']) ? (string) $taProperties[\RedLink\Ontology\FISE::SELECTED_TEXT][0]['value'] : null);
         $textAnnotation->setSelectionContext(isset($taProperties[\RedLink\Ontology\FISE::SELECTION_CONTEXT][0]['value']) ? (string) $taProperties[\RedLink\Ontology\FISE::SELECTION_CONTEXT][0]['value'] : null);
         $textAnnotation->setLanguage(isset($taProperties[\RedLink\Ontology\DCTerms::LANGUAGE][0]['value']) ? (string) $taProperties[\RedLink\Ontology\DCTerms::LANGUAGE][0]['value'] : null);
-        
-        if(!isset($taProperties[\RedLink\Ontology\DCTerms::LANGUAGE]) && isset($taProperties[\RedLink\Ontology\FISE::SELECTED_TEXT][0]['lang']))
-                $textAnnotation->setLanguage ($taProperties[\RedLink\Ontology\FISE::SELECTED_TEXT][0]['lang']);
+
+        if (!isset($taProperties[\RedLink\Ontology\DCTerms::LANGUAGE]) && isset($taProperties[\RedLink\Ontology\FISE::SELECTED_TEXT][0]['lang']))
+            $textAnnotation->setLanguage($taProperties[\RedLink\Ontology\FISE::SELECTED_TEXT][0]['lang']);
     }
 
     /**
      * <p>Sets the data related to a EntityAnnotation</p>
+     * 
      * @param \RedLink\Enhancer\Model\EntityAnnotation $textAnnotation The <code>\RedLink\Enhancer\Model\EntityAnnotation</code> to be populated
-     * @param \EasyRdf_Graph $model The original model containing all the enhancements and other information returned by the Enhancement Service
      */
-    private static function setEntityAnnotationData(\RedLink\Enhancer\Model\EntityAnnotation $entityAnnotation, \EasyRdf_Graph $model)
+    private function setEntityAnnotationData(\RedLink\Enhancer\Model\EntityAnnotation $entityAnnotation)
     {
         /*
          * Sets the common data for an enhancement 
          */
-        self::setEnhancementData($entityAnnotation, $model);
+        $this->setEnhancementData($entityAnnotation);
 
         /*
          * Convert the model to an array for ease of manipulation
          */
-        $modelArray = $model->toArray();
+        $modelArray = $this->model->toArray();
         $eaProperties = $modelArray[$entityAnnotation->getUri()];
 
         $entityAnnotation->setEntityLabel(isset($eaProperties[\RedLink\Ontology\FISE::ENTITY_LABEL][0]['value']) ? (string) $eaProperties[\RedLink\Ontology\FISE::ENTITY_LABEL][0]['value'] : null);
@@ -168,13 +206,13 @@ class EnhancementsParser
             foreach ($eaProperties[\RedLink\Ontology\FISE::ENTITY_TYPE] as $typedValue) {
                 array_push($entityTypes, $typedValue['value']);
             }
-            
+
             $entityAnnotation->setEntityTypes($entityTypes);
         }
 
         if (isset($eaProperties[\RedLink\Ontology\FISE::ENTITY_REFERENCE])) {
             $entityReferenceUri = $eaProperties[\RedLink\Ontology\FISE::ENTITY_REFERENCE][0]['value'];
-            $entity = self::parseEntity($model, $entityReferenceUri);
+            $entity = $this->parseEntity($entityReferenceUri);
             $entityAnnotation->setEntityReference($entity);
         }
 
@@ -183,15 +221,15 @@ class EnhancementsParser
 
     /**
      * <p>Sets the data related to an enhancement</p>
+     * 
      * @param \RedLink\Enhancer\Model\Enhancement $enhancement The <code>\RedLink\Enhancer\Model\Enhancement</code> to be populated
-     * @param \EasyRdf_Graph $model The original model containing all the enhancements and other information returned by the Enhancement Service
      */
-    private static function setEnhancementData(\RedLink\Enhancer\Model\Enhancement $enhancement, \EasyRdf_Graph $model)
+    private function setEnhancementData(\RedLink\Enhancer\Model\Enhancement $enhancement)
     {
         /*
          * Convert the model to an array for ease of manipulation
          */
-        $modelArray = $model->toArray();
+        $modelArray = $this->model->toArray();
         $enProperties = $modelArray[$enhancement->getUri()];
 
         $enhancement->setConfidence(isset($enProperties[\RedLink\Ontology\FISE::CONFIDENCE][0]['value']) ? intval($enProperties[\RedLink\Ontology\FISE::CONFIDENCE][0]['value']) : 0);
@@ -204,16 +242,15 @@ class EnhancementsParser
     /**
      * <p>Parse an entity identified by the entity uri into \RedLink\Vocabulary\Model\Entity</p>
      * 
-     * @param \EasyRdf_Graph $model The original model containing all the enhancements and entities returned by the Enhancement Service
      * @param type $entityUri the entity uri to parse
      * 
      * @return \RedLink\Vocabulary\Model\Entity the parsed entity
      */
-    private static function parseEntity(\EasyRdf_Graph $model, $entityUri)
+    public function parseEntity($entityUri)
     {
         //TODO Parse the properties when \RedLink\Vocabulary\Model\Entity is designed
         $entity = new \RedLink\Vocabulary\Model\Entity($entityUri);
-        $modelArray = $model->toArray();
+        $modelArray = $this->model->toArray();
 
         $entityProperties = $modelArray[$entityUri];
         foreach ($entityProperties as $property => $arrayValues) {
@@ -239,12 +276,11 @@ class EnhancementsParser
     /**
      * <p>Updates the languages of the enhancements getting
      * @param \RedLink\Enhancer\Model\Enhancements $enhancements The \RedLink\Enhancer\Model\Enhancements to update
-     * @param \EasyRdf_Graph $model The original model containing all the enhancements returned by the Enhancement Service
      */
-    private static function updateEnhancementsLanguages(\RedLink\Enhancer\Model\Enhancements $enhancements, \EasyRdf_Graph $model)
+    private function updateEnhancementsLanguages(\RedLink\Enhancer\Model\Enhancements $enhancements)
     {
-        $modelArray = $model->toArray();
-        $textAnnotationsLanguages = $model->resourcesMatching(\RedLink\Ontology\DCTerms::CREATOR, array('type' => 'literal', 'value' => self::$LANGUAGE_DETECTION_ENHANCEMENT_ENGINE));
+        $modelArray = $this->model->toArray();
+        $textAnnotationsLanguages = $this->model->resourcesMatching(\RedLink\Ontology\DCTerms::CREATOR, array('type' => 'literal', 'value' => self::$LANGUAGE_DETECTION_ENHANCEMENT_ENGINE));
         foreach ($textAnnotationsLanguages as $talResource) {
             $talProperties = $modelArray[$talResource->getUri()];
             $existLanguage = isset($talProperties[\RedLink\Ontology\DCTerms::LANGUAGE]);

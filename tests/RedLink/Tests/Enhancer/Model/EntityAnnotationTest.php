@@ -18,9 +18,7 @@ class EntityAnnotationTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
-        self::$model = new \EasyRdf_Graph();
-        self::$model->parseFile(__DIR__ . DIRECTORY_SEPARATOR . 'rdf.txt');
-        $enhancements = \RedLink\Enhancer\Model\EnhancementsParser::createEnhancements(self::$model);
+        $enhancements = \RedLink\Enhancer\Model\Parser\EnhancementsParserFactory::createDefaultParser(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'rdf.txt'))->createEnhancements();
         $entityAnnotations = $enhancements->getEntityAnnotations();
         self::$entityAnnotation = $entityAnnotations['urn:enhancement-0612b7d5-bf5b-62da-9b40-509045ba7651'];
     }
