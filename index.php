@@ -5,7 +5,8 @@ require_once("src/bootstrap.php");
 
 // Currently the DefaultCredentials parameter is not used
 
-$credentials = new RedLink\Credential\DefaultCredentials("123");
+$credentials = new RedLink\Credential\SecureCredentials("ca7483b7");
+$credentials->setSSLCertificates(__DIR__.DIRECTORY_SEPARATOR.'redlink-CA.pem');
 $enhancer = new RedLink\Enhancer\RedLinkEnhanceImpl($credentials);
 
 $enhancements = $enhancer->enhance("Paris is the capital of France");

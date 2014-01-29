@@ -26,7 +26,7 @@ abstract class RedLinkAbstractImpl {
      * @return String the initial URL to be used for the services
      */
     protected final function initiateUriBuilding() {
-        return \http_build_url($this->credentials->getEndpoint());
+        return \http_build_url($this->credentials->getEndpoint(), array("path" => DIRECTORY_SEPARATOR.$this->credentials->getVersion()));
     }
 
 }

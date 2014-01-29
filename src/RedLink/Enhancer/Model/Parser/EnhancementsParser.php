@@ -4,7 +4,7 @@ namespace RedLink\Enhancer\Model\Parser;
 /**
  * <p>Interface to deal with the Enhancements graph model</p>
  *
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
 interface EnhancementsParser
 {

@@ -5,7 +5,7 @@ namespace RedLink\Util;
 /**
  * <p>Helper Class to deal with Object classes</p>
  *
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
 class ClassHelper
 {

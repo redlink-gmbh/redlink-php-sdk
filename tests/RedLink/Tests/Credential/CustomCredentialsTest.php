@@ -35,7 +35,8 @@ class CustomCredentialsTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildUrl() {
         $this->assertNotEmpty($this->credentials->buildUrl($this->credentials->getEndpoint()));
-        $this->assertEquals('http://localhost:8080/api', $this->credentials->buildUrl($this->credentials->getEndpoint()));
+        $client = $this->credentials->buildUrl($this->credentials->getEndpoint());
+        $this->assertEquals('http://localhost:8080/api', $client->getBaseUrl(false));
     }
 }
 

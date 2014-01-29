@@ -6,7 +6,7 @@ namespace RedLink\Tests\Util;
 /**
  * <p>ClassHelper Tests</p>
  *
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  * @covers RedLink\Util\ClassHelper
  */
 class ClassHelperTest extends \PHPUnit_Framework_TestCase

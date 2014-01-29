@@ -5,7 +5,7 @@ namespace RedLink\Tests\Enhancer\Model\Parser;
 /**
  * <p>EnhancementsParser Tests</p>
  *
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  * @covers RedLink\Enhancer\Model\Parser\EasyRdfEnhancementsParser
  * @covers RedLink\Enhancer\Model\Parser\EnhancementsParserFactory
  */

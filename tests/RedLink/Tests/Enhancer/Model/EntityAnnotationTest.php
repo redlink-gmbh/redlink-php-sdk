@@ -5,7 +5,7 @@ namespace RedLink\Tests\Enhancer\Model;
 /**
  * <p>EntityAnnotation Tests</p>
  *
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  * 
  * @covers RedLink\Enhancer\Model\EntityAnnotation
  */

@@ -6,7 +6,7 @@ namespace RedLink\Enhancer\Model;
  * <p>Enhancements Class</p>
  * <p>Represents a set of enhancements as response of the Enhancer Service</p>
  *
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
 class Enhancements
 {

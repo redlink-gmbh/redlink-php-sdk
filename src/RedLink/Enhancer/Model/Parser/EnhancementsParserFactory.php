@@ -9,7 +9,7 @@ namespace RedLink\Enhancer\Model\Parser;
  * @see \RedLink\Enhancer\Model\Parser\EnhancementsParser
  * @see \RedLink\Enhancer\Model\Parser\EasyRdfEnhancementsParser
  *
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
 class EnhancementsParserFactory
 {

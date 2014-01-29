@@ -6,7 +6,7 @@ namespace RedLink\Enhancer\Model;
  * <p>Enhancement Model</p>
  * <p>Represents an enhancement in the Enhancement model</p>
  *
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
 abstract class Enhancement
 {

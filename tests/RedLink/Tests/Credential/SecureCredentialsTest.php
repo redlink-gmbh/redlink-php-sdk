@@ -37,7 +37,7 @@ class SecureCredentialsTest extends \PHPUnit_Framework_TestCase
      */
     public function testEndpoint() {
         $this->assertNotEmpty($this->credentials->getEndpoint());
-        $this->assertEquals('https://beta.redlink.io/1.0-ALPHA/', $this->credentials->getEndpoint());
+        $this->assertEquals('https://api.redlink.io/', $this->credentials->getEndpoint());
     }
 
     /**
@@ -63,7 +63,7 @@ class SecureCredentialsTest extends \PHPUnit_Framework_TestCase
     public function testBuildUrl() {
         $this->assertNotEmpty($this->credentials->buildUrl($this->credentials->getEndpoint()));
         $client = $this->credentials->buildUrl($this->credentials->getEndpoint());
-        $this->assertEquals('https://beta.redlink.io/1.0-ALPHA/?key='.self::$API_KEY_VALUE, $client->getBaseUrl(false));
+        $this->assertEquals('https://api.redlink.io/?key='.self::$API_KEY_VALUE, $client->getBaseUrl(false));
     }
 }
 

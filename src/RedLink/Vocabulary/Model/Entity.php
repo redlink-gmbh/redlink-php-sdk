@@ -6,7 +6,7 @@ namespace RedLink\Vocabulary\Model;
  * <p>Represents an Entity</p>
  * <p>An entity is identified by an URI and it contains a set of properties</p>
  *
- * @author Antonio David Pérez Morales
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
 class Entity
 {
@@ -116,6 +116,15 @@ class Entity
         return array_keys($this->properties);
     }
 
+    /**
+     * <p>Gets the internal array with all the properties and values (with the language if having)</p>
+     * 
+     * @return array An array containing the property names and their values
+     */
+    public function getRawProperties() {
+        return array_merge(array(), $this->properties);
+    }
+    
     /**
      * <p>Gets the first value of a property if exists</p>
      * 

@@ -6,12 +6,12 @@ namespace RedLink\Credential;
  * <p>Secure Credentials</p>
  * <p>Creates the RedLink API Demo Platform Client to be used by the services over a secure connection</p>
  * 
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
 class SecureCredentials extends \RedLink\Credential\AbstractCredentials
 {
 
-    private static $ENDPOINT = "https://beta.redlink.io/1.0-ALPHA/";
+    private static $ENDPOINT = "https://api.redlink.io/";
     private static $KEY_PARAM = "key";
     
     /**
@@ -24,10 +24,11 @@ class SecureCredentials extends \RedLink\Credential\AbstractCredentials
     /**
      * <p>SecureCredentials constructor</p>
      * @param string $apiKey the API Key to be used
+     * @param string $version the API version. Default is 1.0-ALPHA
      */
-    public function __construct($apiKey)
+    public function __construct($apiKey, $version = "1.0-ALPHA")
     {
-        parent::__construct(self::$ENDPOINT, $apiKey);
+        parent::__construct(self::$ENDPOINT, $version, $apiKey);
         $this->sslServerCertificate = '';
     }
 

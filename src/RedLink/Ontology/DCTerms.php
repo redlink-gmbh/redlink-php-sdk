@@ -4,7 +4,7 @@ namespace RedLink\Ontology;
 
 /**
  * Vocabulary definitions from vocabularies/dublin-core_terms.xml 
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
 class DCTerms
 {

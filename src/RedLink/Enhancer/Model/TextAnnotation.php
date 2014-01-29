@@ -6,7 +6,7 @@ namespace RedLink\Enhancer\Model;
  * <p>TextAnnotation Model</p>
  * <p>Represents a TextAnnotation in the Enhancement model</p>
  *
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
 class TextAnnotation extends \RedLink\Enhancer\Model\Enhancement
 {

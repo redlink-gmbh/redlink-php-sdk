@@ -4,17 +4,19 @@ namespace RedLink\Credential;
 
 /**
  * <p>Default Credentials</p>
- * <p>Creates the RedLink API Demo Platform Url to be used by the services</p>
+ * <p>Creates the RedLink API Demo Platform Client to be used by the services</p>
  * 
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
 class DefaultCredentials extends \RedLink\Credential\AbstractCredentials {
 
-    private static $ENDPOINT = "http://demo.api.redlink.io/api";
-    private static $KEY_PARAM = "api_key";
+    private static $ENDPOINT = "https://api.redlink.io/";
+    private static $KEY_PARAM = "key";
+    private static $API_VERSION = "1.0-ALPHA";
 
     public function __construct($apiKey) {
-        parent::__construct(self::$ENDPOINT, $apiKey);
+        parent::__construct(self::$ENDPOINT, self::$API_VERSION, $apiKey);
+        
     }
 
     public function verify() {
@@ -22,8 +24,14 @@ class DefaultCredentials extends \RedLink\Credential\AbstractCredentials {
     }
 
     public function buildUrl($url)  {
-        return \http_build_url($url, array("query" => self::$KEY_PARAM."=".$this->getApiKey()), HTTP_URL_JOIN_PATH | HTTP_URL_JOIN_QUERY);
+        //return \http_build_url($url, array("query" => self::$KEY_PARAM."=".$this->getApiKey()), HTTP_URL_JOIN_PATH | HTTP_URL_JOIN_QUERY);
+        
+        $url = \http_build_url($url, array("query" => self::$KEY_PARAM."=".$this->getApiKey()), HTTP_URL_JOIN_PATH | HTTP_URL_JOIN_QUERY);
+        $client = new \Guzzle\Http\Client($url);
+        
+        return $client;
     }
+    
 }
 
 ?>

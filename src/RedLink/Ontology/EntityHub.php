@@ -4,7 +4,7 @@ namespace RedLink\Ontology;
 
 /**
  * Vocabulary definitions from Stanbol EntityHub 
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
 class EntityHub
 {

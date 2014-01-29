@@ -6,7 +6,7 @@ namespace RedLink\Enhancer\Model;
  * <p>EntityAnnotation Model</p>
  * <p>Represents an EntityAnnotation in the Enhancement model</p>
  *
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
 class EntityAnnotation extends \RedLink\Enhancer\Model\Enhancement
 {

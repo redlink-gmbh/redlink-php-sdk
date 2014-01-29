@@ -5,10 +5,13 @@
  */
 error_reporting(E_ALL | E_STRICT);
 
+define('REDLINK_ROOT_PATH', dirname(dirname(__FILE__)));
+define('REDLINK_SRC_PATH', dirname(__FILE__));
+
 /*
  * Load the Composer autoloader and set the directory for custom classes and libraries
  */
-$loader = require_once("vendor/autoload.php");
+$loader = require("vendor/autoload.php");
 $loader->add("RedLink", dirname(__FILE__));
 $loader->add("RedLink\\Tests", dirname(__DIR__).DIRECTORY_SEPARATOR.'tests/');
 

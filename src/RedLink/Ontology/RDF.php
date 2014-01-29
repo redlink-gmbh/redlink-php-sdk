@@ -4,7 +4,7 @@ namespace RedLink\Ontology;
 
 /**
  * Vocabulary definitions from RDF ontology 
- * @author Antonio David Pérez Morales <adperezmorales@gmail.com>
+ * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
 class RDF
 {

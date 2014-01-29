@@ -8,11 +8,13 @@ namespace RedLink;
  */
 interface RedLinkEnhance {
     
-    const LIVE = "live";
+    const PATH = "analysis";
+    
+    const ENHANCE = "enhance";
+    
+    const FORMAT = "format";
 		
-    const LIVE_FORMAT = "format";
-		
-    public function enhance($content);
+    public function enhance($content, $analysis);
 }
 
 ?>

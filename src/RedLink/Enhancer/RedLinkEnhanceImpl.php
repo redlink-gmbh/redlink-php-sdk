@@ -15,7 +15,8 @@ class RedLinkEnhanceImpl extends \RedLink\RedLinkAbstractImpl implements \RedLin
      * Managed response format
      * @var String
      */
-    private static $FORMAT = "rdf";
+    private static $OUTPUT_FORMAT = "out";
+    private static $ACCEPT_FORMAT = "application/rdf+xml";
 
     /**
      * <p>Default constructor</p>
@@ -30,36 +31,36 @@ class RedLinkEnhanceImpl extends \RedLink\RedLinkAbstractImpl implements \RedLin
     /**
      * <p>Enhance the given text returning the annotations found in the text</p>
      * @param String $content The content to be enhanced
+     * @param String $analysis The name of the analysis
      */
-    public function enhance($content)
+    public function enhance($content, $analysis)
     {
-        $liveApiServiceUrl = $this->credentials->buildUrl($this->getLiveUrl());
-        return $this->execEnhance($liveApiServiceUrl, $content);
+        $liveApiServiceClient = $this->credentials->buildUrl($this->getEnhanceUri($analysis));
+        return $this->execEnhance($liveApiServiceClient, $content);
     }
 
     /**
      * <p>Obtains the url of the live service using the credentials</p>
+     * @param String $analysis The analysis name
      * @return String containing the url of the Live service
      */
-    private function getLiveUrl()
+    private function getEnhanceUri($analysis)
     {
         $initUrl = $this->initiateUriBuilding();
-        return \http_build_url($initUrl, array("path" => self::LIVE, "query" => self::LIVE_FORMAT . "=" . self::$FORMAT), HTTP_URL_STRIP_AUTH | HTTP_URL_JOIN_PATH | HTTP_URL_JOIN_QUERY | HTTP_URL_STRIP_FRAGMENT);
+        return \http_build_url($initUrl, array("path" => self::PATH.DIRECTORY_SEPARATOR.$analysis.DIRECTORY_SEPARATOR.self::ENHANCE, "query" => self::$OUTPUT_FORMAT . "=" . self::$ACCEPT_FORMAT), HTTP_URL_STRIP_AUTH | HTTP_URL_JOIN_PATH | HTTP_URL_JOIN_QUERY | HTTP_URL_STRIP_FRAGMENT);
     }
 
     /**
      * <p>Executes the enhancement process</p>
-     * @param String $serviceUrl The url of the enhance (live) service
-     * @param String $content  The content to enhance
+     * @param \Guzzle\Http\Client $enhancerClient The client for the enhance service
+     * @param String $content The content to enhance
      * 
      * @return \RedLink\Enhancer\Model\Enhancements object containing the enhancements
      */
-    private function execEnhance($serviceUrl, $content)
+    private function execEnhance($enhancerClient, $content)
     {
-        $client = new \Guzzle\Http\Client($serviceUrl);
-        $response = $client->post(null, array("Content-Type" => "text/plain"), $content)->send();
         
-        //return $response;
+        $response = $enhancerClient->post(null, array("Content-Type" => "text/plain", "Accept" => self::$ACCEPT_FORMAT), $content)->send();
         
         if ($response->getStatusCode() != 200) {
             throw new \RuntimeException("Enhancement failed: HTTP error code " . $response->getStatusCode());
