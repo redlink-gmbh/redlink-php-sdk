@@ -1,6 +1,6 @@
 <?php
 
-namespace RedLink\Enhancer\Model;
+namespace RedLink\Analysis\Model;
 
 /**
  * <p>Enhancement Model</p>
@@ -51,7 +51,7 @@ abstract class Enhancement
     
     /**
      * The array of relations
-     * @var array of \RedLink\Enhancer\Model\Enhancement
+     * @var array of \RedLink\Analysis\Model\Enhancement
      * 
      */
     protected $relations = null; // http://purl.org/dc/terms/relation
@@ -175,7 +175,7 @@ abstract class Enhancement
 
     /**
      * <p>Gets the relations of the enhancement</p>
-     * @return array The relations of the enhancement using the uri of each enhancement as array index and the \RedLink\Enhancer\Model\Enhancement instance as value
+     * @return array The relations of the enhancement using the uri of each enhancement as array index and the \RedLink\Analysis\Model\Enhancement instance as value
      */
     public function getRelations()
     {
@@ -184,7 +184,7 @@ abstract class Enhancement
 
     /**
      * <p>Sets the relations of the enhancement</p>
-     * @param array $relations The relations of the enhancement using the uri of each enhancement as array index and the \RedLink\Enhancer\Model\Enhancement instance as value
+     * @param array $relations The relations of the enhancement using the uri of each enhancement as array index and the \RedLink\Analysis\Model\Enhancement instance as value
      */
     public function setRelations($relations)
     {

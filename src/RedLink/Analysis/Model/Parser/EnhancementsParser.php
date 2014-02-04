@@ -1,6 +1,6 @@
 <?php
 
-namespace RedLink\Enhancer\Model\Parser;
+namespace RedLink\Analysis\Model\Parser;
 /**
  * <p>Interface to deal with the Enhancements graph model</p>
  *
@@ -10,9 +10,9 @@ interface EnhancementsParser
 {
 
     /**
-     * <p>Creates the \RedLink\Enhancer\Model\Enhancements object from the given model</p>
+     * <p>Creates the \RedLink\Analysis\Model\Enhancements object from the given model</p>
      * 
-     * @return object A \RedLink\Enhancer\Model\Enhancements object instance representing the enhancements
+     * @return object A \RedLink\Analysis\Model\Enhancements object instance representing the enhancements
      */
     public function createEnhancements();
 
@@ -20,7 +20,7 @@ interface EnhancementsParser
      * <p>Parses the enhancements contained in the given model</p>
      * <p>Returns both TextAnnotation and EntityAnnotation enhancements</p>
      *
-     * @return array An array containing the \RedLink\Enhancer\Model\Enhancement objects
+     * @return array An array containing the \RedLink\Analysis\Model\Enhancement objects
      */
     public function parseEnhancements();
     
@@ -32,16 +32,16 @@ interface EnhancementsParser
     public function parseLanguages();
     
     /**
-     * <p>Parse the TextAnnotations contained in the model into <code>\RedLink\Enhancer\Model\TextAnnotation</code> objects</p>
+     * <p>Parse the TextAnnotations contained in the model into <code>\RedLink\Analysis\Model\TextAnnotation</code> objects</p>
      * 
-     * @return array An array containing the \RedLink\Enhancer\Model\TextAnnotation objects
+     * @return array An array containing the \RedLink\Analysis\Model\TextAnnotation objects
      */
     public function parseTextAnnotations();
     
     /**
-     * <p>Parse the EntityAnnotations contained in the model into <code>\RedLink\Enhancer\Model\EntityAnnotation</code> objects
+     * <p>Parse the EntityAnnotations contained in the model into <code>\RedLink\Analysis\Model\EntityAnnotation</code> objects
      * 
-     * @return array An array containing the \RedLink\Enhancer\Model\EntityAnnotation objects
+     * @return array An array containing the \RedLink\Analysis\Model\EntityAnnotation objects
      */
     public function parseEntityAnnotations();
     

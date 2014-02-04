@@ -2,11 +2,11 @@
 
 namespace RedLink;
 /**
- * <p>RedLink Enhance Service Interface</p>
+ * <p>RedLink Analysis Service Interface</p>
  * 
  * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
-interface RedLinkEnhance {
+interface RedLinkAnalysis {
     
     const PATH = "analysis";
     
@@ -14,7 +14,7 @@ interface RedLinkEnhance {
     
     const FORMAT = "format";
 		
-    public function enhance($content, $analysis);
+    public function enhance(\RedLink\Analysis\AnalysisRequest $request);
 }
 
 ?>

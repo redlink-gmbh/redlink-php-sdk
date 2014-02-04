@@ -1,13 +1,13 @@
 <?php
 
-namespace RedLink\Tests\Enhancer\Model;
+namespace RedLink\Tests\Analysis\Model;
 
 /**
  * <p>EntityAnnotation Tests</p>
  *
  * @author Antonio David Pérez Morales <aperez@zaizi.com>
  * 
- * @covers RedLink\Enhancer\Model\EntityAnnotation
+ * @covers RedLink\Analysis\Model\EntityAnnotation
  */
 class EntityAnnotationTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,7 @@ class EntityAnnotationTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
-        $enhancements = \RedLink\Enhancer\Model\Parser\EnhancementsParserFactory::createDefaultParser(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'rdf.txt'))->createEnhancements();
+        $enhancements = \RedLink\Analysis\Model\Parser\EnhancementsParserFactory::createDefaultParser(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'rdf.txt'))->createEnhancements();
         $entityAnnotations = $enhancements->getEntityAnnotations();
         self::$entityAnnotation = $entityAnnotations['urn:enhancement-0612b7d5-bf5b-62da-9b40-509045ba7651'];
     }
@@ -61,7 +61,7 @@ class EntityAnnotationTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, self::$entityAnnotation->getRelations());
         $relations = self::$entityAnnotation->getRelations();
         $firstRelation = array_pop($relations);
-        $this->assertTrue($firstRelation instanceof \RedLink\Enhancer\Model\TextAnnotation);
+        $this->assertTrue($firstRelation instanceof \RedLink\Analysis\Model\TextAnnotation);
 
         //Test Created
         $this->assertNotNull(self::$entityAnnotation->getCreated());

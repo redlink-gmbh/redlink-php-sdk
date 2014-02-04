@@ -17,7 +17,7 @@ abstract class RedLinkAbstractImpl {
      * 
      * @param \RedLink\Credentials $credentials The <code>\RedLink\Credentials</code> object to be used
      */
-    public function __construct(\RedLink\ICredentials $credentials) {
+    public function __construct(\RedLink\Credentials $credentials) {
         $this->credentials = $credentials;
     }
 

@@ -6,8 +6,8 @@ namespace RedLink\Tests\Enhancer\Model\Parser;
  * <p>EnhancementsParser Tests</p>
  *
  * @author Antonio David Pérez Morales <aperez@zaizi.com>
- * @covers RedLink\Enhancer\Model\Parser\EasyRdfEnhancementsParser
- * @covers RedLink\Enhancer\Model\Parser\EnhancementsParserFactory
+ * @covers RedLink\Analysis\Model\Parser\EasyRdfEnhancementsParser
+ * @covers RedLink\Analysis\Model\Parser\EnhancementsParserFactory
  */
 class EasyRdfEnhancementsParserTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,7 @@ class EasyRdfEnhancementsParserTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
-        self::$enhancementsParser = \RedLink\Enhancer\Model\Parser\EnhancementsParserFactory::createDefaultParser(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'rdf.txt'));
+        self::$enhancementsParser = \RedLink\Analysis\Model\Parser\EnhancementsParserFactory::createDefaultParser(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'rdf.txt'));
         //self::$model->parseFile(__DIR__.DIRECTORY_SEPARATOR.'rdf.txt');
     }
     
@@ -32,7 +32,7 @@ class EasyRdfEnhancementsParserTest extends \PHPUnit_Framework_TestCase
      * @covers RedLink\Enhancer\Model\EnhancementsParser::parseEnhancements
      */
     public function testParseEnhancements() {
-        $this->assertInstanceOf('\RedLink\Enhancer\Model\Parser\EasyRdfEnhancementsParser', self::$enhancementsParser);
+        $this->assertInstanceOf('\RedLink\Analysis\Model\Parser\RDFStructureParser', self::$enhancementsParser);
         $enhancementsArray = self::$enhancementsParser->parseEnhancements();
         $this->assertNotNull($enhancementsArray);
         $this->assertCount(63, $enhancementsArray);

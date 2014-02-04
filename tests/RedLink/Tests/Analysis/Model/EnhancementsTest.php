@@ -1,13 +1,13 @@
 <?php
 
-namespace RedLink\Tests\Enhancer\Model;
+namespace RedLink\Tests\Analysis\Model;
 
 /**
  * <p>Enhancements Tests</p>
  *
  * @author Antonio David Pérez Morales <aperez@zaizi.com>
  * 
- * @covers RedLink\Enhancer\Model\Enhancements
+ * @covers RedLink\Analysis\Model\Enhancements
  */
 class EnhancementsTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,11 +32,11 @@ class EnhancementsTest extends \PHPUnit_Framework_TestCase
     
     public function setUp() {
         parent::setUp();
-        $this->enhancements = \RedLink\Enhancer\Model\Parser\EnhancementsParserFactory::createDefaultParser(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'rdf.txt'))->createEnhancements();
+        $this->enhancements = \RedLink\Analysis\Model\Parser\EnhancementsParserFactory::createDefaultParser(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'rdf.txt'))->createEnhancements();
     }
     
     /**
-     * @covers RedLink\Enhancer\Model\Enhancements::getLanguages
+     * @covers RedLink\Analysis\Model\Enhancements::getLanguages
      */
     public function testGetLanguages() {
         
@@ -45,7 +45,7 @@ class EnhancementsTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers RedLink\Enhancer\Model\Enhancements::setLanguages
+     * @covers RedLink\Analysis\Model\Enhancements::setLanguages
      */
     public function testSetLanguages() {
         $langs = array("en", "es");
@@ -55,7 +55,7 @@ class EnhancementsTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers RedLink\Enhancer\Model\Enhancements::addLanguage
+     * @covers RedLink\Analysis\Model\Enhancements::addLanguage
      */
     public function testAddLanguage() {
         $this->enhancements->addLanguage("es");
@@ -64,7 +64,7 @@ class EnhancementsTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers RedLink\Enhancer\Model\Enhancements::getTextAnnotationsByConfidenceValue
+     * @covers RedLink\Analysis\Model\Enhancements::getTextAnnotationsByConfidenceValue
      */
     public function testGetTextAnnotationsByConfidenceValue() {
         $result = $this->enhancements->getTextAnnotationsByConfidenceValue(0.5);
@@ -72,7 +72,7 @@ class EnhancementsTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers RedLink\Enhancer\Model\Enhancements::getEntityAnnotationsByConfidenceValue
+     * @covers RedLink\Analysis\Model\Enhancements::getEntityAnnotationsByConfidenceValue
      */
     public function testGetEntityAnnotationsByConfidenceValue() {
         $result = $this->enhancements->getEntityAnnotationsByConfidenceValue(0.5);
@@ -80,7 +80,7 @@ class EnhancementsTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers RedLink\Enhancer\Model\Enhancements::getEntitiesByConfidenceValue
+     * @covers RedLink\Analysis\Model\Enhancements::getEntitiesByConfidenceValue
      */
     public function testGetEntitiesByConfidenceValue() {
         $result = $this->enhancements->getEntitiesByConfidenceValue(0.5);
@@ -88,14 +88,14 @@ class EnhancementsTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers RedLink\Enhancer\Model\Enhancements::getEntities
+     * @covers RedLink\Analysis\Model\Enhancements::getEntities
      */
     public function testGetEntities() {
         
     }
     
     /**
-     * @covers RedLink\Enhancer\Model\Enhancements::getEntity
+     * @covers RedLink\Analysis\Model\Enhancements::getEntity
      */
     public function testGetEntity() {
         $entity = $this->enhancements->getEntity('http://rdf.freebase.com/ns/m.03d60yx');

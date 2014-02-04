@@ -1,12 +1,12 @@
 <?php
 
-namespace RedLink\Tests\Enhancer\Model;
+namespace RedLink\Tests\Analysis\Model;
 
 /**
  * <p>Entity Tests</p>
  *
  * @author Antonio David Pérez Morales <aperez@zaizi.com>
- * @covers RedLink\Enhancer\Model\Entity
+ * @covers RedLink\Analysis\Model\Entity
  */
 class EntityTest extends \PHPUnit_Framework_TestCase
 {

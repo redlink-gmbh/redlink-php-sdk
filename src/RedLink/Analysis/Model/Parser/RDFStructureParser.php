@@ -1,6 +1,6 @@
 <?php
 
-namespace RedLink\Enhancer\Model\Parser;
+namespace RedLink\Analysis\Model\Parser;
 
 /**
  * <p>Class representing an EnhancementsParser</p>
@@ -9,7 +9,7 @@ namespace RedLink\Enhancer\Model\Parser;
  * @author Antonio David Pérez Morales <aperez@zaizi.com>
  * 
  */
-class EasyRdfEnhancementsParser implements \RedLink\Enhancer\Model\Parser\EnhancementsParser
+class RdfStructureParser implements \RedLink\Analysis\Model\Parser\EnhancementsParser
 {
 
     /**
@@ -37,13 +37,13 @@ class EasyRdfEnhancementsParser implements \RedLink\Enhancer\Model\Parser\Enhanc
     private static $LANGUAGE_DETECTION_ENHANCEMENT_ENGINE = "org.apache.stanbol.enhancer.engines.langdetect.LanguageDetectionEnhancementEngine";
 
     /**
-     * <p>Creates the \RedLink\Enhancer\Model\Enhancements object from the given model</p>
+     * <p>Creates the \RedLink\Analysis\Model\Enhancements object from the given model</p>
      * 
-     * @return object A \RedLink\Enhancer\Model\Enhancements object instance representing the enhancements 
+     * @return object A \RedLink\Analysis\Model\Enhancements object instance representing the enhancements 
      */
     public function createEnhancements()
     {
-        $enhancements = new \RedLink\Enhancer\Model\Enhancements($this->model);
+        $enhancements = new \RedLink\Analysis\Model\Enhancements($this->model);
         $enhancements->setEnhancements($this->parseEnhancements($this->model));
         $enhancements->setLanguages($this->parseLanguages($this->model));
         return $enhancements;
@@ -53,7 +53,7 @@ class EasyRdfEnhancementsParser implements \RedLink\Enhancer\Model\Parser\Enhanc
      * <p>Parses the enhancements contained in the model</p>
      * <p>Returns both TextAnnotation and EntityAnnotation enhancements</p>
      * 
-     * @return array An array containing the \RedLink\Enhancer\Model\Enhancement objects
+     * @return array An array containing the \RedLink\Analysis\Model\Enhancement objects
      */
     public function parseEnhancements()
     {
@@ -79,9 +79,9 @@ class EasyRdfEnhancementsParser implements \RedLink\Enhancer\Model\Parser\Enhanc
     }
 
     /**
-     * <p>Parse the TextAnnotations contained in the model into <code>\RedLink\Enhancer\Model\TextAnnotation</code> objects</p>
+     * <p>Parse the TextAnnotations contained in the model into <code>\RedLink\Analysis\Model\TextAnnotation</code> objects</p>
      * 
-     * @return array An array containing the \RedLink\Enhancer\Model\TextAnnotation objects
+     * @return array An array containing the \RedLink\Analysis\Model\TextAnnotation objects
      */
     public function parseTextAnnotations()
     {
@@ -97,7 +97,7 @@ class EasyRdfEnhancementsParser implements \RedLink\Enhancer\Model\Parser\Enhanc
             if (isset($modelArray[$taResource->getUri()][\RedLink\Ontology\DCTerms::CREATOR]) && $modelArray[$taResource->getUri()][\RedLink\Ontology\DCTerms::CREATOR][0]['value'] == self::$LANGUAGE_DETECTION_ENHANCEMENT_ENGINE)
                 continue;
 
-            $textAnnotation = new \RedLink\Enhancer\Model\TextAnnotation($taResource->getUri());
+            $textAnnotation = new \RedLink\Analysis\Model\TextAnnotation($taResource->getUri());
             $this->setTextAnnotationData($textAnnotation);
 
             $enhancements[$textAnnotation->getUri()] = $textAnnotation;
@@ -107,9 +107,9 @@ class EasyRdfEnhancementsParser implements \RedLink\Enhancer\Model\Parser\Enhanc
     }
 
     /**
-     * <p>Parse the EntityAnnotations contained in the model into <code>\RedLink\Enhancer\Model\EntityAnnotation</code> objects
+     * <p>Parse the EntityAnnotations contained in the model into <code>\RedLink\Analysis\Model\EntityAnnotation</code> objects
      * 
-     * @return array An array containing the \RedLink\Enhancer\Model\EntityAnnotation objects
+     * @return array An array containing the \RedLink\Analysis\Model\EntityAnnotation objects
      */
     public function parseEntityAnnotations()
     {
@@ -121,7 +121,7 @@ class EasyRdfEnhancementsParser implements \RedLink\Enhancer\Model\Parser\Enhanc
         $entityAnnotations = $this->model->resourcesMatching(\RedLink\Ontology\RDF::TYPE, array('type' => 'uri', 'value' => \RedLink\Ontology\FISE::ENTITY_ANNOTATION));
         foreach ($entityAnnotations as $eaResource) {
 
-            $entityAnnotation = new \RedLink\Enhancer\Model\EntityAnnotation($eaResource->getUri());
+            $entityAnnotation = new \RedLink\Analysis\Model\EntityAnnotation($eaResource->getUri());
             $this->setEntityAnnotationData($entityAnnotation);
 
             $enhancements[$entityAnnotation->getUri()] = $entityAnnotation;
@@ -154,9 +154,9 @@ class EasyRdfEnhancementsParser implements \RedLink\Enhancer\Model\Parser\Enhanc
     /**
      * <p>Sets the data related to a TextAnnotation</p>
      * 
-     * @param \RedLink\Enhancer\Model\TextAnnotation $textAnnotation The <code>\RedLink\Enhancer\Model\TextAnnotation</code> to be populated
+     * @param \RedLink\Analysis\Model\TextAnnotation $textAnnotation The <code>\RedLink\Analysis\Model\TextAnnotation</code> to be populated
      */
-    private function setTextAnnotationData(\RedLink\Enhancer\Model\TextAnnotation $textAnnotation)
+    private function setTextAnnotationData(\RedLink\Analysis\Model\TextAnnotation $textAnnotation)
     {
         /*
          * Sets the common data for an enhancement 
@@ -183,9 +183,9 @@ class EasyRdfEnhancementsParser implements \RedLink\Enhancer\Model\Parser\Enhanc
     /**
      * <p>Sets the data related to a EntityAnnotation</p>
      * 
-     * @param \RedLink\Enhancer\Model\EntityAnnotation $textAnnotation The <code>\RedLink\Enhancer\Model\EntityAnnotation</code> to be populated
+     * @param \RedLink\Analysis\Model\EntityAnnotation $textAnnotation The <code>\RedLink\Analysis\Model\EntityAnnotation</code> to be populated
      */
-    private function setEntityAnnotationData(\RedLink\Enhancer\Model\EntityAnnotation $entityAnnotation)
+    private function setEntityAnnotationData(\RedLink\Analysis\Model\EntityAnnotation $entityAnnotation)
     {
         /*
          * Sets the common data for an enhancement 
@@ -222,9 +222,9 @@ class EasyRdfEnhancementsParser implements \RedLink\Enhancer\Model\Parser\Enhanc
     /**
      * <p>Sets the data related to an enhancement</p>
      * 
-     * @param \RedLink\Enhancer\Model\Enhancement $enhancement The <code>\RedLink\Enhancer\Model\Enhancement</code> to be populated
+     * @param \RedLink\Analysis\Model\Enhancement $enhancement The <code>\RedLink\Analysis\Model\Enhancement</code> to be populated
      */
-    private function setEnhancementData(\RedLink\Enhancer\Model\Enhancement $enhancement)
+    private function setEnhancementData(\RedLink\Analysis\Model\Enhancement $enhancement)
     {
         /*
          * Convert the model to an array for ease of manipulation
@@ -277,9 +277,9 @@ class EasyRdfEnhancementsParser implements \RedLink\Enhancer\Model\Parser\Enhanc
 
     /**
      * <p>Updates the languages of the enhancements getting
-     * @param \RedLink\Enhancer\Model\Enhancements $enhancements The \RedLink\Enhancer\Model\Enhancements to update
+     * @param \RedLink\Analysis\Model\Enhancements $enhancements The \RedLink\Analysis\Model\Enhancements to update
      */
-    private function updateEnhancementsLanguages(\RedLink\Enhancer\Model\Enhancements $enhancements)
+    private function updateEnhancementsLanguages(\RedLink\Analysis\Model\Enhancements $enhancements)
     {
         $modelArray = $this->model->toArray();
         $textAnnotationsLanguages = $this->model->resourcesMatching(\RedLink\Ontology\DCTerms::CREATOR, array('type' => 'literal', 'value' => self::$LANGUAGE_DETECTION_ENHANCEMENT_ENGINE));

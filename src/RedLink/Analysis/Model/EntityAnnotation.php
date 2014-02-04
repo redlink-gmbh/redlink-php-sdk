@@ -1,6 +1,6 @@
 <?php
 
-namespace RedLink\Enhancer\Model;
+namespace RedLink\Analysis\Model;
 
 /**
  * <p>EntityAnnotation Model</p>
@@ -8,7 +8,7 @@ namespace RedLink\Enhancer\Model;
  *
  * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
-class EntityAnnotation extends \RedLink\Enhancer\Model\Enhancement
+class EntityAnnotation extends \RedLink\Analysis\Model\Enhancement
 {
 
     // properties

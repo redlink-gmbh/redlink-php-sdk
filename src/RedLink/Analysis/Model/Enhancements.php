@@ -1,10 +1,10 @@
 <?php
 
-namespace RedLink\Enhancer\Model;
+namespace RedLink\Analysis\Model;
 
 /**
  * <p>Enhancements Class</p>
- * <p>Represents a set of enhancements as response of the Enhancer Service</p>
+ * <p>Represents a set of enhancements as response of the Analysis Service</p>
  *
  * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
@@ -44,7 +44,7 @@ class Enhancements
     /**
      * <p>Gets the collection of enhancements</p>
      * 
-     * @return array Containing the \RedLink\Enhancer\Model\Enhancement objects
+     * @return array Containing the \RedLink\Analysis\Model\Enhancement objects
      */
     public function getEnhancements()
     {
@@ -59,7 +59,7 @@ class Enhancements
     /**
      * <p>Adds the enhancements passed as parameter to the collection of enhancements</p>
      * 
-     * @param array $enhancements containing the \RedLink\Enhancer\Model\Enhancement objects
+     * @param array $enhancements containing the \RedLink\Analysis\Model\Enhancement objects
      */
     public function setEnhancements($enhancements)
     {
@@ -70,9 +70,9 @@ class Enhancements
 
     /**
      * <p>Adds a specific enhancement to the collection of enhancements</p>
-     * @param \RedLink\Enhancer\Model\Enhancement $enhancement The enhancement to add
+     * @param \RedLink\Analysis\Model\Enhancement $enhancement The enhancement to add
      */
-    public function addEnhancement(\RedLink\Enhancer\Model\Enhancement $enhancement)
+    public function addEnhancement(\RedLink\Analysis\Model\Enhancement $enhancement)
     {
 
         if (!isset($this->enhancements[\RedLink\Util\ClassHelper::getClassName($enhancement)]))
@@ -80,7 +80,7 @@ class Enhancements
 
         $this->enhancements[\RedLink\Util\ClassHelper::getClassName($enhancement)][$enhancement->getUri()] = $enhancement;
 
-        if ($enhancement instanceof \RedLink\Enhancer\Model\EntityAnnotation) {
+        if ($enhancement instanceof \RedLink\Analysis\Model\EntityAnnotation) {
             $this->entities[$enhancement->getEntityReference()->getUri()] = $enhancement->getEntityReference();
         }
     }
@@ -160,7 +160,7 @@ class Enhancements
     public function getEntitiesByConfidenceValue($confidenceValue)
     {
      $entityAnnotations = $this->getEntityAnnotationsByConfidenceValue($confidenceValue);
-     $result = array_map(function(\RedLink\Enhancer\Model\EntityAnnotation $entityAnnotation) {
+     $result = array_map(function(\RedLink\Analysis\Model\EntityAnnotation $entityAnnotation) {
          return $entityAnnotation->getEntityReference();
      }, $entityAnnotations);
      
@@ -190,19 +190,19 @@ class Enhancements
     }
     
     /**
-     * <p>Gets the \RedLink\Enhancer\Model\Enhancement which 
+     * <p>Gets the \RedLink\Analysis\Model\Enhancement which 
      * have a confidence value greater than the given one and sorted by confidence value</p>
      * 
-     * @param array $enhancements The array of <code>\RedLink\Enhancer\Model\Enhancement</code> instances
+     * @param array $enhancements The array of <code>\RedLink\Analysis\Model\Enhancement</code> instances
      * @param float $confidenceValue The confidence value to use
      */
     private function getEnhancementsByConfidenceValue($enhancements, $confidenceValue) {
-        $result = array_filter($enhancements, function(\RedLink\Enhancer\Model\Enhancement $enhancement) use ($confidenceValue) {
+        $result = array_filter($enhancements, function(\RedLink\Analysis\Model\Enhancement $enhancement) use ($confidenceValue) {
                     return $enhancement->getConfidence() >= $confidenceValue;
                 });
 
         // Order by confidence value
-        usort($result, function(\RedLink\Enhancer\Model\Enhancement $o1, \RedLink\Enhancer\Model\Enhancement $o2) {
+        usort($result, function(\RedLink\Analysis\Model\Enhancement $o1, \RedLink\Analysis\Model\Enhancement $o2) {
                     return ($o1->getConfidence() == $o2->getConfidence()) ? 0 : ($o1->getConfidence() > $o2->getConfidence() ? -1 : 1);
                 });
                 
@@ -231,7 +231,7 @@ class Enhancements
             if($entityAnnotation->getRelations() != null) {
                 foreach($entityAnnotation->getRelations() as $key => $relation)
                 {
-                    if ($relation instanceof \RedLink\Enhancer\Model\TextAnnotation)
+                    if ($relation instanceof \RedLink\Analysis\Model\TextAnnotation)
                     {
                         $hashTE[$relation->getUri()][] = $entityAnnotation;
                     }
@@ -242,7 +242,7 @@ class Enhancements
         $result = array();
         $textAnnotations = $this->getTextAnnotations();
         foreach($hashTE as $taURI => $entityAnnotations) {
-            usort($entityAnnotations, function(\RedLink\Enhancer\Model\Enhancement $o1, \RedLink\Enhancer\Model\Enhancement $o2) {
+            usort($entityAnnotations, function(\RedLink\Analysis\Model\Enhancement $o1, \RedLink\Analysis\Model\Enhancement $o2) {
                     return ($o1->getConfidence() == $o2->getConfidence()) ? 0 : ($o1->getConfidence() > $o2->getConfidence() ? -1 : 1);
             });
 

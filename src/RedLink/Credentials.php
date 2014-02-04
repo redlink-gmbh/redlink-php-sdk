@@ -8,7 +8,7 @@ namespace RedLink;
  * @author Antonio David Pérez Morales <aperez@zaizi.com>
  *
  */
-interface ICredentials {
+interface Credentials {
     
     public function getApiKey();
 

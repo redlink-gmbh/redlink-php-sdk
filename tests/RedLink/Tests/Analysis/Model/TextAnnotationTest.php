@@ -1,13 +1,13 @@
 <?php
 
-namespace RedLink\Tests\Enhancer\Model;
+namespace RedLink\Tests\Analysis\Model;
 
 /**
  * <p>TextAnnotation Tests</p>
  *
  * @author Antonio David Pérez Morales <aperez@zaizi.com>
  * 
- * @covers RedLink\Enhancer\Model\TextAnnotation
+ * @covers RedLink\Analysis\Model\TextAnnotation
  */
 class TextAnnotationTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,7 @@ class TextAnnotationTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
-        $enhancements = \RedLink\Enhancer\Model\Parser\EnhancementsParserFactory::createDefaultParser(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'rdf.txt'))->createEnhancements();
+        $enhancements = \RedLink\Analysis\Model\Parser\EnhancementsParserFactory::createDefaultParser(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'rdf.txt'))->createEnhancements();
         $textAnnotations = $enhancements->getTextAnnotations();
 
         self::$textAnnotation = $textAnnotations['urn:enhancement-5ed22ff7-0c2f-4ad5-ee87-b71968f613a8'];

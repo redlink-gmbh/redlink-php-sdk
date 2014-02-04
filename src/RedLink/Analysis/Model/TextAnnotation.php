@@ -1,6 +1,6 @@
 <?php
 
-namespace RedLink\Enhancer\Model;
+namespace RedLink\Analysis\Model;
 
 /**
  * <p>TextAnnotation Model</p>
@@ -8,7 +8,7 @@ namespace RedLink\Enhancer\Model;
  *
  * @author Antonio David Pérez Morales <aperez@zaizi.com>
  */
-class TextAnnotation extends \RedLink\Enhancer\Model\Enhancement
+class TextAnnotation extends \RedLink\Analysis\Model\Enhancement
 {
 
     // properties

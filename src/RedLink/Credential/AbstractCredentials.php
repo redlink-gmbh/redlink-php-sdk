@@ -8,11 +8,11 @@ namespace RedLink\Credential;
  * @author Antonio David Pérez Morales <aperez@zaizi.com>
  * 
  */
-abstract class AbstractCredentials implements \RedLink\ICredentials {
+abstract class AbstractCredentials implements \RedLink\Credentials {
 
-    private $endpoint;
-    private $apiKey;
-    private $version;
+    protected $endpoint;
+    protected $apiKey;
+    protected $version;
 
     /**
      * <p>The default constructor</p>
@@ -54,7 +54,7 @@ abstract class AbstractCredentials implements \RedLink\ICredentials {
      * @return boolean indicating whether the connection is possible or not
      */
     public function verify() {
-        $client = new Guzzle\Http\Client(endpoint);
+        $client = new Guzzle\Http\Client($this->buildUrl($this->getEndpoint().DIRECTORY_SEPARATOR.$this->getVersion()));
         $response = $client->head()->send();
         return $response->getStatusCode() == 200;
     }
