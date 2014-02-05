@@ -33,14 +33,6 @@ class SecureCredentials extends \RedLink\Credential\AbstractCredentials
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function verify()
-    {
-        throw new \RuntimeException("Not implemented yet");
-    }
-
-    /**
      * <p>Set the SSL Server certificates which are going to be trusted</p>
      * @param String $sslServerCertificate The file containing the certificate to trust 
      *      or a path containing the certificates to trust. If empty, the default certificates are used to verify the server certificate with.

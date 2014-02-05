@@ -11,7 +11,7 @@ namespace RedLink\Tests\Credentials;
 class SecureCredentialsTest extends \PHPUnit_Framework_TestCase
 {
     private $credentials;
-    private static $API_KEY_VALUE = "APIKEYVALUE";
+    private static $API_KEY_VALUE = "ORyqZI32NP5psNnnVfYRCr9WzkyhlDX9cf16b394";
     
     private static $REDLINK_CA_FILE;
     
@@ -58,12 +58,20 @@ class SecureCredentialsTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers RedLink\Credentials\DefaultCredentials::buildUrl
+     * @covers RedLink\Credentials\SecureCredentials::buildUrl
      */
     public function testBuildUrl() {
         $this->assertNotEmpty($this->credentials->buildUrl($this->credentials->getEndpoint()));
         $client = $this->credentials->buildUrl($this->credentials->getEndpoint());
         $this->assertEquals('https://api.redlink.io/?key='.self::$API_KEY_VALUE, $client->getBaseUrl(false));
+    }
+    
+    /**
+     * @covers RedLink\Credentials\SecureCredentials::verify
+     */
+    public function testVerify() {
+        $result = $this->credentials->verify();
+        $this->assertTrue($result);
     }
 }
 
