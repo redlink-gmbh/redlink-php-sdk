@@ -12,7 +12,7 @@ class DefaultCredentials extends \RedLink\Credential\AbstractCredentials {
 
     private static $ENDPOINT = "https://api.redlink.io/";
     private static $KEY_PARAM = "key";
-    private static $API_VERSION = "1.0-ALPHA";
+    private static $API_VERSION = "1.0-BETA";
 
     public function __construct($apiKey) {
         parent::__construct(self::$ENDPOINT, self::$API_VERSION, $apiKey);

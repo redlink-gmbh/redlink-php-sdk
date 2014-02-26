@@ -20,7 +20,7 @@ abstract class AbstractCredentials implements \RedLink\Credentials {
      * @param String $version the API version
      * @param String $apiKey the api key
      */
-    public function __construct($endpoint, $version = "1.0-ALPHA", $apiKey = "") {
+    public function __construct($endpoint, $version = "1.0-BETA", $apiKey = "") {
         $this->endpoint = $endpoint;
         $this->version = $version;
         $this->apiKey = $apiKey;

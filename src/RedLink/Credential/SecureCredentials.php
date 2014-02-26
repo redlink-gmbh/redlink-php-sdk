@@ -24,9 +24,9 @@ class SecureCredentials extends \RedLink\Credential\AbstractCredentials
     /**
      * <p>SecureCredentials constructor</p>
      * @param string $apiKey the API Key to be used
-     * @param string $version the API version. Default is 1.0-ALPHA
+     * @param string $version the API version. Default is 1.0-BETA
      */
-    public function __construct($apiKey, $version = "1.0-ALPHA")
+    public function __construct($apiKey, $version = "1.0-BETA")
     {
         parent::__construct(self::$ENDPOINT, $version, $apiKey);
         $this->sslServerCertificate = '';
