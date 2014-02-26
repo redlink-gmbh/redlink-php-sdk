@@ -2,9 +2,9 @@
     "name": "redlink/redlink",
     "type": "library",
     "description": "RedLink SDK PHP is a client library and framework to request and deal with RedLink API",
-    "keywords": ["RedLink", "SDK", "framework", "http", "rest", "web service", "curl", "client"],
-    "homepage": "http://guzzlephp.org/",
-    "license": "MIT",
+    "keywords": ["RedLink", "SDK", "framework", "http", "rest", "web service", "curl", "client", "php"],
+    "homepage": "http://bitbucket.org/redlinkgmbh/sdk-php",
+    "license": "Apache License 2.0",
 
     "authors": [
         {
