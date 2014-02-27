@@ -11,7 +11,7 @@ namespace RedLink\Tests\Credentials;
 class SecureCredentialsTest extends \PHPUnit_Framework_TestCase
 {
     private $credentials;
-    private static $API_KEY_VALUE = "ORyqZI32NP5psNnnVfYRCr9WzkyhlDX9cf16b394";
+    private static $API_KEY_VALUE = "8KcDAIk7kfN2JrJfDwxnjOPp4KdL7u0gefac4544";
     
     private static $REDLINK_CA_FILE;
     
