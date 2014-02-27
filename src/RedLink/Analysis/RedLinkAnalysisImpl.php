@@ -33,30 +33,21 @@ class RedLinkAnalysisImpl extends \RedLink\RedLinkAbstractImpl implements \RedLi
      * <p>The analysis result will depend on the configured application within the used Credentials</p>
      * 
      * @param $request \RedLink\Analysis\AnalysisRequest containing the request parameters and the content to be enhanced
+     * @param $raw boolean Indicating if the response will be parsed or not
      * @return \RedLink\Analysis\Model\Enhancements Structure
      */
-    public function enhance(AnalysisRequest $request)
+    public function enhance(AnalysisRequest $request, $raw = false)
     {
-        $liveApiServiceClient = $this->credentials->buildUrl($this->getEnhanceUri($request));
-        $rawEnhancements = $this->execEnhance($liveApiServiceClient, $request);
+        $liveApiServiceClient = $this->credentials->buildUrl($this->getEnhanceUri($request, $raw));
+        $rawEnhancements = $this->execEnhance($liveApiServiceClient, $request, !$raw);
 
+        if($raw)
+            return $rawEnhancements;
+        
         $enhancementsParser = \RedLink\Analysis\Model\Parser\EnhancementsParserFactory::createDefaultParser($rawEnhancements);
         $enhancements = $enhancementsParser->createEnhancements();
 
         return $enhancements;
-    }
-
-    /**
-     * <p>Performs an analysis of the content included in the request, getting the raw response</p>
-     * <p>The analysis result will depend on the configured application within the used Credentials</p>
-     * 
-     * @param $request \RedLink\Analysis\AnalysisRequest} containing the request parameters and the content to be enhanced
-     * @return string containing the raw response
-     */
-    public function enhanceRaw(AnalysisRequest $request)
-    {
-        $liveApiServiceClient = $this->credentials->buildUrl($this->getEnhanceUri($request, true));
-        return $this->execEnhance($liveApiServiceClient, $request, false);
     }
 
     /**
