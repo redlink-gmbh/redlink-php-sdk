@@ -10,6 +10,16 @@ namespace RedLink\Analysis;
  */
 class AnalysisRequest {
     
+	//Input Format
+	public static $inputFormat = array("text" => "text/plain", 
+			"html" => "text/html", "pdf" => "application/pdf",
+			"doc", "application/doc");
+
+	public static $outputFormat = array("xml" => "application/atom+xml",
+			"json" => "application/json", "jsonld" => "application/ld+json",
+			"rdfxml" => "application/rdf+xml","rdfjson" => "application/rdf+json",
+			"turtle" => "text/turtle", "nt" => "text/rdf+n3");
+	
     private $analysis;
     private $content;
     private $inputFormat;
