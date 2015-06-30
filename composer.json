@@ -1,6 +1,6 @@
 {
     "name": "redlink/sdk-php",
-    "version": "1.0.0",
+    "version": "1.0.1-dev",
     "type": "library",
     "description": "RedLink SDK PHP is a client library and framework to request and deal with RedLink API",
     "keywords": ["RedLink", "SDK", "framework", "http", "rest", "web service", "curl", "client", "php", "rdf", "linked data", "content analysis"],
