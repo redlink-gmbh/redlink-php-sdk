@@ -13,5 +13,5 @@ To package the SDK you need to:
 
 * Install [phar-composer](https://github.com/clue/phar-composer)
 * Build the PHAR package: `php phar-composer.phar build`
-* And you'll get the package in thw working directory
+* And you'll get the `sdk-php.phar` package built in the working directory
 
