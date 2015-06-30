@@ -21,8 +21,8 @@
     ],
     
     "require": {
-        "guzzle/guzzle" : "dev-master",
-        "easyrdf/easyrdf": "*"
+        "guzzle/guzzle" : "3.8.1",
+        "easyrdf/easyrdf": "0.7.2"
     },
     
     "autoload": {
