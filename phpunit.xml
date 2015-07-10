@@ -14,6 +14,7 @@
             <directory>./tests/RedLink/Tests</directory>
         </testsuite>
     </testsuites>
-
+    <php>
+      <env name="API_KEY" value="REPLACE_ME" />
+    </php>
 </phpunit>
-
