@@ -28,7 +28,7 @@ class RedLinkAnalysisImplTest extends \PHPUnit_Framework_TestCase {
     
     protected function setUp() {
         parent::setUp();
-        $credentials = new \RedLink\Credential\SecureCredentials(self::API_KEY_VALUE);
+        $credentials = new \RedLink\Credential\SecureCredentials(self::$API_KEY_VALUE);
         $credentials->setSSLCertificates(self::$REDLINK_CA_FILE);
         $this->redlinkAnalysis = new \RedLink\Analysis\RedLinkAnalysisImpl($credentials);
     }
@@ -37,7 +37,7 @@ class RedLinkAnalysisImplTest extends \PHPUnit_Framework_TestCase {
      * @covers \RedLink\Analysis\RedLinkAnalysisImpl\enhance
      */
     public function testEnhance() {
-        $analysisRequest = \RedLink\Analysis\AnalysisRequestBuilder::builder()->setAnalysis(self::API_ANALYSIS_VALUE)->setContent(self::TEXT_TO_ENHANCE)->build();
+        $analysisRequest = \RedLink\Analysis\AnalysisRequestBuilder::builder()->setAnalysis(self::$API_ANALYSIS_VALUE)->setContent(self::$TEXT_TO_ENHANCE)->build();
         $enhancements = $this->redlinkAnalysis->enhance($analysisRequest);
         $this->assertNotNull($enhancements);
     }

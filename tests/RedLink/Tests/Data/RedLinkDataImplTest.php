@@ -33,7 +33,7 @@ class RedLinkDataImplTest  extends \PHPUnit_Framework_TestCase {
 
   protected function setUp() {
     parent::setUp();
-    $credentials = new \RedLink\Credential\SecureCredentials(self::API_KEY_VALUE);
+    $credentials = new \RedLink\Credential\SecureCredentials(self::$API_KEY_VALUE);
     $credentials->setSSLCertificates(self::$REDLINK_CA_FILE);
     $this->redlinkDataService = new \RedLink\Data\RedLinkDataImpl($credentials);
   }
@@ -42,12 +42,12 @@ class RedLinkDataImplTest  extends \PHPUnit_Framework_TestCase {
     $data = file_get_contents(REDLINK_ROOT_PATH . DIRECTORY_SEPARATOR ."tests/RedLink/Resources/test.rdf");
     $formatObj = \EasyRdf_Format::getFormat(self::TURTLE);
     $format = $formatObj->getDefaultMimeType();
-    $result = $this->redlinkDataService->importDataset($data, $format,self::API_DATASET_VALUE, false);
+    $result = $this->redlinkDataService->importDataset($data, $format,self::$API_DATASET_VALUE, false);
     $this->assertEquals(true, $result);
   }
 
   public function testExportDataset() {
-    $result = $this->redlinkDataService->exportDataset(self::API_DATASET_VALUE);
+    $result = $this->redlinkDataService->exportDataset(self::$API_DATASET_VALUE);
     //print_r($result->getBody(true));
     $rawModel = $result->getBody(true);
     $model = new \EasyRdf_Graph();
@@ -58,9 +58,9 @@ class RedLinkDataImplTest  extends \PHPUnit_Framework_TestCase {
   }
 
   public function testCleanDataset() {
-    $result = $this->redlinkDataService->cleanDataset(self::API_DATASET_VALUE);
+    $result = $this->redlinkDataService->cleanDataset(self::$API_DATASET_VALUE);
     $this->assertTrue($result);
-    $result = $this->redlinkDataService->exportDataset(self::API_DATASET_VALUE);
+    $result = $this->redlinkDataService->exportDataset(self::$API_DATASET_VALUE);
     //print_r($result->getBody(true));
     $rawModel = $result->getBody(true);
     $model = new \EasyRdf_Graph();
@@ -70,7 +70,7 @@ class RedLinkDataImplTest  extends \PHPUnit_Framework_TestCase {
   }
 
   public function testSparqlSelect() {
-    $result = $this->redlinkDataService->sparqlSelect(self::QUERY_SELECT, self::API_DATASET_VALUE);
+    $result = $this->redlinkDataService->sparqlSelect(self::QUERY_SELECT, self::$API_DATASET_VALUE);
     $format = \EasyRdf_Format::getFormat(self::SPARQL_JSON);
     $sparqlResultObj = new \EasyRdf_Sparql_Result($result->getBody(true), $format->getDefaultMimeType());
     echo "Number of Rows::".$sparqlResultObj->numRows();
@@ -78,7 +78,7 @@ class RedLinkDataImplTest  extends \PHPUnit_Framework_TestCase {
   }
 
   private function getCurrentSize() {
-    $result = $this->redlinkDataService->sparqlSelect(self::QUERY_SELECT, self::API_DATASET_VALUE);
+    $result = $this->redlinkDataService->sparqlSelect(self::QUERY_SELECT, self::$API_DATASET_VALUE);
     $format = \EasyRdf_Format::getFormat(self::SPARQL_JSON);
     $sparqlResultObj = new \EasyRdf_Sparql_Result($result->getBody(true), $format->getDefaultMimeType());
     return $sparqlResultObj->numRows();
