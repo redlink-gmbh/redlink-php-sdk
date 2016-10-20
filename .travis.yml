@@ -1,4 +1,5 @@
 language: php
+sudo: required
 
 php:
 - 5.4
@@ -9,8 +10,9 @@ php:
 - hhvm
 - nightly
 
-install: composer install
+before_install:
+- sudo update-ca-certificates -f
 
-env:
-  global:
-    API_KEY: test
+install: 
+- composer install
+
