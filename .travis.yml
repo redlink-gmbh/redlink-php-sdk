@@ -11,6 +11,7 @@ php:
 - nightly
 
 before_install:
+- phpenv config-rm xdebug.ini
 - sudo update-ca-certificates -f
 
 install: 
