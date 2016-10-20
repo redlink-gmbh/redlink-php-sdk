@@ -17,7 +17,7 @@ class RedLinkAnalysisImplTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $credentials = new \RedLink\Credential\SecureCredentials("8KcDAIk7kfN2JrJfDwxnjOPp4KdL7u0gefac4544");
+        $credentials = new \RedLink\Credential\SecureCredentials("QVBU1skUrDBlapFOeHZZHa3uqs1fI3vwb67d6405"); //FIXME
         $credentials->setSSLCertificates(REDLINK_ROOT_PATH . DIRECTORY_SEPARATOR . 'redlink-CA.pem');
         $this->redlinkAnalysis = new \RedLink\Analysis\RedLinkAnalysisImpl($credentials);
     }
