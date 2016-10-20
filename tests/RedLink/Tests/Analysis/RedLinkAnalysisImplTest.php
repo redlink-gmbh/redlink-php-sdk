@@ -37,7 +37,7 @@ class RedLinkAnalysisImplTest extends \PHPUnit_Framework_TestCase {
      * @covers \RedLink\Analysis\RedLinkAnalysisImpl\enhance
      */
     public function testEnhance() {
-        $analysisRequest = \RedLink\Analysis\AnalysisRequestBuilder::builder()->setAnalysis(self::$API_ANALYSIS_VALUE)->setContent(self::$TEXT_TO_ENHANCE)->build();
+        $analysisRequest = \RedLink\Analysis\AnalysisRequestBuilder::builder()->setAnalysis(self::$API_ANALYSIS_VALUE)->setContent(self::TEXT_TO_ENHANCE)->build();
         $enhancements = $this->redlinkAnalysis->enhance($analysisRequest);
         $this->assertNotNull($enhancements);
     }
