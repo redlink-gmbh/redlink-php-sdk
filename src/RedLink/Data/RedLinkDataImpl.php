@@ -66,7 +66,7 @@ class RedLinkDataImpl extends \RedLink\RedLinkAbstractImpl implements \RedLink\I
     $format = \EasyRdf_Format::getFormat('turtle');
     $response = $dataServiceClient
       ->get(NULL, array(
-        "Content-Type" => "text/plain",
+        "Content-Type" => "text/turtle",
         "Accept" => $format->getDefaultMimeType()
       ))->send();
 

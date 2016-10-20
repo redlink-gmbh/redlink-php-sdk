@@ -48,8 +48,8 @@ class RedLinkDataImplTest  extends \PHPUnit_Framework_TestCase {
 
   public function testExportDataset() {
     $result = $this->redlinkDataService->exportDataset(self::$API_DATASET_VALUE);
-    //print_r($result->getBody(true));
     $rawModel = $result->getBody(true);
+    print_r($rawModel);
     $model = new \EasyRdf_Graph();
     $model->parse($rawModel);
     echo "Triples:::: " . $model->countTriples();
