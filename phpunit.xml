@@ -16,5 +16,6 @@
     </testsuites>
     <php>
       <env name="API_KEY" value="REPLACE_ME" />
+        <env name="API_ANALYSIS" value="php-sdk" />
     </php>
 </phpunit>

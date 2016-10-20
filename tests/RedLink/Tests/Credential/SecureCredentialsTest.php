@@ -11,8 +11,8 @@ namespace RedLink\Tests\Credentials;
 class SecureCredentialsTest extends \PHPUnit_Framework_TestCase
 {
     private $credentials;
+
     private static $API_KEY_VALUE;
-    
     private static $REDLINK_CA_FILE;
     
     public static function setUpBeforeClass()
