@@ -15,7 +15,8 @@
         </testsuite>
     </testsuites>
     <php>
-      <env name="API_KEY" value="REPLACE_ME" />
+        <env name="API_KEY" value="REPLACE_ME" />
         <env name="API_ANALYSIS" value="php-sdk" />
+        <env name="API_ANALYSIS" value="php-tests" />
     </php>
 </phpunit>

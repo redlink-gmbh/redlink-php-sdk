@@ -10,6 +10,7 @@ namespace RedLink\Tests\Analysis;
  * @covers RedLink\Analysis\RedLinkAnalysisImpl
  */
 class RedLinkAnalysisImplTest extends \PHPUnit_Framework_TestCase {
+
     private $redlinkAnalysis;
 
     private static $API_KEY_VALUE;
