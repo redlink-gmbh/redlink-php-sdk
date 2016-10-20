@@ -8,6 +8,11 @@ developing against our API.
 The SDKs are provided for a limited set of languages; so if it does not covers your particular, 
 needs, please contact us for further information.
 
+[![Latest Version](https://poser.pugx.org/redlink/sdk-php/version)](https://packagist.org/packages/redlink/sdk-php)
+[![Current Dev Version](https://poser.pugx.org/redlink/sdk-php/v/unstable)](//packagist.org/packages/redlink/sdk-php)
+[![Build Status](https://secure.travis-ci.org/redlink-gmbh/redlink-php-sdk.svg?branch=master)](https://travis-ci.org/redlink-gmbh/redlink-php-sdk)
+[![License](http://img.shields.io/:license-apache-blue.svg)][ASL2]
+
 Further details at [dev.redlink.io][dev].
 
 ## License
